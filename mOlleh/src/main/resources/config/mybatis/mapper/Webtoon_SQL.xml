@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="webtoon">
+	<delete id="deleteWebtoon" parameterType="hashmap">
+		<![CDATA[
+			delete from m_cms_webtoon
+			where
+				weekcd = #{sWeekCnt}::int
+		]]>
+	</delete>
+	
+	<delete id="deleteWebtoonTmp" parameterType="hashmap">
+		<![CDATA[
+			delete from m_cms_webtoon_tmp
+		]]>
+	</delete>
+	
+	<select id="selectWebtoonList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				authors, webtoonnm, toonfg, imgpath, imgalt, timesseq, weekcd, 
+       			webtoonseq, timestitle, timesviewurl, timeslisturl, dsporder, regdate
+  			FROM 
+  				m_cms_webtoon
+  			where toonfg='toon' 
+  				and weekcd=#{sWeekCnt}::int
+  				and dspyn='Y'
+  			order by dsporder Asc
+		]]>
+	</select>
+	
+	<select id="selectWebtoonTmp" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				authors, webtoonnm, toonfg, thumbpath300, thumbpath, timesseq, 
+       			weeks, webtoonseq, weekcd, timestitle, timesviewurl, timeslisturl
+  			FROM 
+  				m_cms_webtoon_tmp
+		]]>
+	</select>
+	
+	<insert id="insertWebtoonTmp" parameterType="hashmap">
+		<![CDATA[
+			insert into m_cms_webtoon_tmp
+			(
+				authors,webtoonnm,toonfg,thumbpath300,thumbpath,timesseq,weeks,webtoonseq,
+				weekcd,timestitle,timesviewurl,timeslisturl
+				)
+			values
+			(
+				#{authors},
+				#{webtoonnm},
+				#{toonfg},
+				#{thumbpath300},
+				#{thumbpath},
+				#{timesseq}::int,
+				#{weeks},
+				#{webtoonseq}::int,
+				#{weekcd}::int,
+				#{timestitle},
+				#{timesviewurl},
+				#{timeslisturl}
+			)
+			]]>
+	</insert>
+	
+	<insert id="insertWebtoon" parameterType="hashmap">
+		<![CDATA[
+			insert into m_cms_webtoon
+			(
+				authors, webtoonnm, toonfg, imgpath, imgalt, timesseq, weekcd, 
+            	webtoonseq, timestitle, timesviewurl, timeslisturl, dsporder
+				)
+			values
+			(
+				#{authors},
+				#{webtoonnm},
+				#{toonfg},
+				#{imgpath},
+				#{imgalt},
+				#{timesseq}::int,
+				#{weekcd}::int,
+				#{webtoonseq}::int,
+				#{timestitle},
+				#{timesviewurl},
+				#{timeslisturl},
+				#{dsporder}::int
+			)
+			]]>
+	</insert>
+	
+	<update id="updateReadCnt" parameterType="hashmap">
+		<![CDATA[
+			update tb_board
+			set
+				read = read+1
+			where
+				idx = #{idx}::int
+		]]>
+	</update>
+	
+	<select id="selectBoardDetail" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			select
+				idx,read,reg_id,reg_date,title,content
+			from
+				tb_board
+			where
+				idx = #{idx}::int
+		]]>
+	</select>
+	
+	<update id="updateBoard" parameterType='hashmap'>
+		<![CDATA[
+			update tb_board
+			set
+				title = #{title},
+				content	= #{content}
+			where
+				idx = #{idx}::int
+		]]>
+	</update>
+	
+	<insert id="insertFile" parameterType="hashmap">
+		<![CDATA[
+			insert into tb_file
+			(
+				idx,
+				board_idx,
+				origin_file_name,
+				stored_file_name,
+				file_size,
+				reg_id
+			)
+			values
+			(
+				nextval('seq_tb_file_idx'),
+				#{board_idx}::int,
+				#{origin_file_name},
+				#{stored_file_name},
+				#{file_size},
+				'Admin'				
+			)			
+			
+		]]>
+	</insert>
+	
+	<select id="selectFileList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			select
+				idx, origin_file_name, round(file_size/1024,1) as file_size
+			from
+				tb_file
+			where
+				board_idx=#{idx}::int
+				and status=1
+		]]>
+	</select>
+	
+	<update id="deleteFileList" parameterType="hashmap">
+		<![CDATA[
+			update tb_file set
+				status=9
+			where
+				board_idx=#{idx}::int
+		]]>
+	</update>
+	
+	<update id="updateFile" parameterType="hashmap">
+		<![CDATA[
+			update tb_file set
+				status=1
+			where
+				idx=#{file_idx}::int
+		]]>
+	</update>
+</mapper>

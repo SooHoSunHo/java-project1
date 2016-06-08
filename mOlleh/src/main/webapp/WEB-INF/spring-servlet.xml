@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:aop="http://www.springframework.org/schema/aop"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-4.1.xsd  
+     http://www.springframework.org/schema/mvc
+     http://www.springframework.org/schema/mvc/spring-mvc.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+ 
+  	<!-- context:component-scan base-package="com.birdhill" />
+  	<context:component-scan base-package="common" / -->
+  	
+  	<context:component-scan base-package="com.birdhill" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+   	<mvc:annotation-driven>
+  		<mvc:argument-resolvers>
+  			<bean class="com.birdhill.common.resolver.CustomMapArgumentResolver" />
+  		</mvc:argument-resolvers>
+  	</mvc:annotation-driven>
+  	
+  	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="loggerInterceptor" class="com.birdhill.common.logger.LoggerInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <mvc:default-servlet-handler />
+    
+    <aop:aspectj-autoproxy/>
+    <bean id="loggerAspect" class="com.birdhill.common.logger.LoggerAspect" />
+    
+    <!-- mvc:resources mapping="/common/**" location="/common/" /-->
+    <mvc:resources mapping="/**" location="/" />
+    
+  	<!-- bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+  	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+  	<bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/ -->
+  	
+  	<bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
+  	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" >
+        <property name="contentType" value="application/json;Charset=UTF-8" />
+    </bean>
+
+  	<!-- bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" /-->
+
+  	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+    <!-- tile2를 이용하기 위해서는 UrlBasedViewResolver를 정의한 후 viewClass를 org.springframework.web.servlet.view.titles2.TilesView로 정의 -->
+    <!--bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+    </beans -->
+
+	<!--bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean" /-->
+
+    <!--bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+
+    </bean-->
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:messages" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+</beans>

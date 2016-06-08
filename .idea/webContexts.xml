@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/board/boardDetail.jsp" value="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/board" />
+        <entry key="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/board/boardList.jsp" value="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/board" />
+        <entry key="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/enroll.jsp" value="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp" />
+        <entry key="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/success.jsp" value="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp" />
+        <entry key="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/user/edit.jsp" value="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/user" />
+        <entry key="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/user/list.jsp" value="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/user" />
+        <entry key="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/user/regist.jsp" value="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/user" />
+        <entry key="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/user/userRegForm.jsp" value="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/user" />
+        <entry key="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/webtoon/webtoonList.jsp" value="file://$PROJECT_DIR$/mOlleh/src/main/webapp/WEB-INF/jsp/webtoon" />
+      </map>
+    </option>
+  </component>
+</project>
