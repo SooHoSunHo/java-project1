@@ -177,4 +177,9 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping("/recommand")
+    public String recommand(@PathVariable String recomId) throws  Exception{
+        
+        return "/user/list";
+    }
 }
