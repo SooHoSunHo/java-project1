@@ -120,5 +120,5 @@ public class BoardController {
 		return mv;
 	}
 	
-	
+	//test
 }
